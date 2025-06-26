@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Discover Our Blends - Arova</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap'); /* Updated import for Inter and Libre Baskerville */
+      .font-libre-baskerville { font-family: 'Libre Baskerville', serif; }
+      .font-inter { font-family: 'Inter', sans-serif; }
+      .btn {
+  padding: 0.4rem 0.9rem;       /* Reduced vertical & horizontal padding */
+  font-size: 0.875rem;          /* Smaller font (text-sm) */
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  white-space: nowrap;
+}
+      .btn-cart {
+        background-color: #385032; /* Primary green */
+        color: rgb(225, 222, 195));
+      }
+      .btn-cart:hover {
+        background-color: #5e7d58; /* Lighter green on hover */
+        transform: translateY(-2px); /* Slight lift */
+        box-shadow: 0 4px 10px rgba(56, 80, 50, 0.2); /* Subtle shadow */
+      }
+      .btn-wishlist {
+        background-color: #ef4444; /* Red for wishlist */
+        color: rgb(225, 222, 195);
+      }
+      .btn-wishlist:hover {
+        background-color: #dc2626; /* Darker red on hover */
+        transform: translateY(-2px); /* Slight lift */
+        box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2); /* Subtle shadow */
+      }
+
+      /* Consistent product card styling */
+      .product-card-discover {
+        background-color: #ffffff; /* White background for individual cards */
+        border: 1px solid #e0e0b8; /* Subtle border */
+        border-radius: 1.5rem; /* Rounded corners */
+        box-shadow: 0 8px 20px rgba(56, 80, 50, 0.1); /* Soft shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden; /* Ensure image corners are clipped */
+      }
+
+      .product-card-discover:hover {
+        transform: translateY(-8px); /* More pronounced lift on hover */
+        box-shadow: 0 15px 30px rgba(56, 80, 50, 0.2); /* Stronger shadow */
+      }
+
+      .product-image-discover {
+        width: 100%;
+        height: 220px; /* Consistent height for images */
+        object-fit: cover; /* Ensures image covers the area */
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+        margin-bottom: 1rem; /* Space below image */
+        transition: transform 0.3s ease;
+      }
+
+      .product-card-discover:hover .product-image-discover {
+          transform: scale(1.05); /* Slight zoom on image hover */
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #385032 0%, #5e7d58 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
+  </head>
+  <body class="bg-amber-50 font-inter text-[#385032] antialiased">
+    <%- include('partials/header') %>
+
+    <main class="max-w-screen-xl mx-auto px-4 py-10">
+      <h1 class="text-4xl font-bold mb-8 text-center font-libre-baskerville gradient-text">Discover Our Blends</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <% products.forEach(product => { %>
+          <div class="product-card-discover p-4 text-center">
+            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image-discover"/>
+            <h2 class="text-xl font-semibold font-libre-baskerville mb-2"><%= product.name %></h2>
+            <p class="text-gray-600 mb-2 text-sm"><%= product.description %></p>
+            <p class="text-2xl font-bold text-[#385032] mb-4">₹<%= product.price %></p>
+
+            <div class="flex justify-center gap-3 mt-4">
+              <form action="/add-to-cart/<%= product.id %>" method="POST">
+                <button type="submit" class="btn btn-cart">Add to Cart</button>
+              </form>
+              <form action="/add-to-wishlist/<%= product.id %>" method="POST">
+                <button type="submit" class="btn btn-wishlist">Add to Wishlist</button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
