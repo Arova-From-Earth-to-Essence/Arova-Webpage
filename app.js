@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 const port = 5000; // <<< KEEP THIS PORT 5000 FOR NOW
 
 app.set('view engine', 'ejs');
@@ -41,6 +42,12 @@ app.get('/cart', (req, res) => {
 app.get('/heritage', (req, res) => {
     res.render('heritage');
 });
+
+// Discover Our Blends Page
+app.get('/discover', (req, res) => {
+  res.render('discover', { products: dummyProducts });
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
