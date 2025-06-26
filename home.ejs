@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arova – From Earth to Essence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Updated @import for Libre Baskerville */
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+      @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-marquee {
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .animate-marquee span {
+        display: inline-block;
+        animation: marquee 60s linear infinite;
+        padding-left: 100%;
+      }
+
+      .animate-float {
+        animation: float 10s ease-in-out infinite;
+      }
+
+      .animate-fadeInUp {
+        animation: fadeInUp 3s ease-out forwards;
+      }
+
+      /* New font class for Libre Baskerville */
+      .font-libre-baskerville {
+        font-family: 'Libre Baskerville', serif;
+      }
+
+      .font-inter {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .search-input-with-icons {
+        padding-left: 3rem;
+        padding-right: 3rem;
+        border: 2px solid transparent;
+        outline: none;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 80, 50, 0.1);
+      }
+
+      .search-input-with-icons:focus {
+        border-color: #385032;
+        box-shadow: 0 0 0 3px rgba(56, 80, 50, 0.1);
+      }
+
+      .search-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 45rem;
+        margin: 0 auto;
+      }
+
+      .search-icon, .microphone-icon {
+        position: absolute;
+        color: #6b7280;
+        transition: color 0.3s ease;
+      }
+
+      .search-icon {
+        left: 1rem;
+      }
+
+      .microphone-icon {
+        right: 1rem;
+        cursor: pointer;
+      }
+
+      .microphone-icon:hover {
+        color: #385032;
+      }
+
+      .category-card {
+        background-color: rgb(246, 246, 229);
+        border: 1px solid #dddcbc;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        backdrop-filter: blur(10px);
+      }
+
+      .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(56, 80, 50, 0.15);
+        border-color: #385032;
+      }
+
+      .category-image {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 150px;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+      }
+
+      .category-card:hover .category-image {
+        transform: scale(1.05);
+      }
+
+      /* --- Hero Section Background (REMOVED BACKGROUND IMAGE) --- */
+      .hero-section {
+        background-color: rgb(246, 246, 229); /* Solid background for hero content */
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 250px;
+        margin-top: 0;
+      }
+
+      /* No ::before overlay needed for hero-section now */
+      .hero-section::before {
+        content: none; /* Remove the overlay */
+      }
+
+      .hero-section > * {
+        position: relative;
+        z-index: 10;
+      }
+
+      /* New style for the separate image section */
+      .main-hero-image-section {
+        width: 150%;
+        height: 800px; /* Adjust height as needed */
+        background-image: url('images/hero.jpg'); /* Your desired hero image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 0rem; /* Match other rounded elements */
+        margin-top: 0rem; /* Space between hero text and image */
+        margin-left: 0rem;
+        margin-right: 0rem;
+        max-width: calc(100% - 2rem); /* Keep it within general layout if desired, or make it full width */
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* Subtle shadow */
+      }
+      @media (min-width: 1024px) {
+          .main-hero-image-section {
+              max-width: 100%; /* Wider on larger screens */
+          }
+      }
+
+
+      .gradient-text {
+        background: linear-gradient(135deg, #385032 0%, #5e7d58 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #385032 0%, #4c6646 100%);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(56, 80, 50, 0.3);
+      }
+
+      /* Ensuring main content sections have a background after removing body background */
+      /* Applying consistent padding and border-radius to sections */
+      section:not(.hero-section):not(.main-hero-image-section) { /* Apply to all sections except hero and the new image section */
+          background-color: rgb(246, 246, 229); /* Default white background for content sections */
+          margin-top: 4rem; /* Add some space between sections */
+          border-radius: 1.5rem; /* Match other rounded elements */
+          padding: 5rem 1.5rem; /* Consistent padding for content within sections */
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Soft shadow for depth */
+      }
+
+      .max-w-screen-2xl {
+          max-width: 1536px; /* Tailwind's max-width for 2xl screen size */
+      }
+
+      /* Adjust footer margin */
+      footer {
+          margin-top: 4rem;
+      }
+
+      .marquee-on-image { /* Renamed to avoid confusion, but not needed if marquee is separate */
+        position: relative; /* Changed from absolute, as it's a standalone element */
+      }
+
+      /* Add this for smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Heritage Section Specific Styling */
+      .heritage-section {
+        background-image: url('https://via.placeholder.com/1500x800/d4d4aa/d4d4aa?text=+'); /* Subtle background image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        overflow: hidden; /* Ensures pseudo-element doesn't overflow */
+      }
+
+      /* Optional: Add a subtle overlay to the heritage section background image for better text readability */
+      .heritage-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(246, 246, 229, 0.7); /* Light overlay */
+        z-index: 1; /* Place above background image but below text */
+      }
+
+      .heritage-section h2,
+      .heritage-section p {
+        position: relative;
+        z-index: 2; /* Ensure text is above the overlay */
+      }
+    </style>
+  </head>
+  <body class="bg-amber-50 font-inter text-[#385032] antialiased">
+    <header class="w-full py-6 bg-white shadow-lg rounded-b-2xl sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto flex flex-col sm:flex-row justify-between items-center px-8 gap-4">
+            <div class="flex flex-col items-center">
+                <div class="text-2xl font-bold text-[#385032] font-libre-baskerville animate-float">
+                🌿 Arova
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8 font-medium">
+                 <a href="/heritage" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300">Heritage
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5e7d58] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300 relative group">
+                Collection
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5e7d58] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300 relative group">
+                Process
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5e7d58] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300 relative group">
+                Benefits
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5e7d58] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact-us-section" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300 relative group">
+                Contact
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5e7d58] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="/wishlist" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300" aria-label="Wishlist">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                 </a>
+                <a href="/cart" class="text-[#385032] hover:text-[#5e7d58] transition-colors duration-300" aria-label="Shopping Cart">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.5-4h11.77c.71 0 1.25-.49 1.42-1.19L22.88 7.3c.18-.7-.2-1.3-.9-1.3H6.27L5.4 3.73C5.25 3.12 4.7 2.75 4.09 2.75H2v2h2.27l2.83 12h9.2L18 13H7.42L6.5 9.61c-.08-.34-.4-.61-.76-.61H2v2h2.27l.83 3.39L7.42 17h10.43l1.5-3H8.5z"/>
+    </svg>
+</a>
+                <button class="btn-primary text-white px-6 py-3 rounded-full font-semibold shadow-lg">
+                    Shop Luxury Oils
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section w-full px-4">
+      <div class="animate-fadeInUp relative z-10">
+        <h1 class="text-5xl md:text-6xl mb-8 text-[#385032] font-libre-baskerville">
+          <strong class="font-bold">Arova</strong> - <em class="font-light">From Earth to Essence</em>
+        </h1>
+
+        <div class="search-input-container mb-8">
+          <svg class="search-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" placeholder="What are you looking for?" class="w-full rounded-full py-4 text-lg search-input-with-icons" />
+          <svg class="microphone-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0v-1a7 7 0 0114 0v1z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21v-4"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 11h-4M6 11H2"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-hero-image-section mx-auto"></section>
+
+    <div class="bg-gradient-to-r from-[#e0e0b8] to-[#d4d4aa] py-4 animate-marquee text-lg font-medium overflow-hidden text-[#385032] shadow-inner">
+        <span>🌿 Begin Your Arova Journey: Unlock exclusive launch benefits and a complimentary essence with your first order. Cultivating wellness, just for you. 💚    🌿 Begin Your Arova Journey: Unlock exclusive launch benefits and a complimentary essence with your first order. Cultivating wellness, just for you. 💚      🌿 Begin Your Arova Journey: Unlock exclusive launch benefits and a complimentary essence with your first order. Cultivating wellness, just for you. 💚  🌿 Begin Your Arova Journey: Unlock exclusive launch benefits and a complimentary essence with your first order. Cultivating wellness, just for you. 💚</span>
+    </div>
+
+    <section class="max-w-7xl mx-auto text-center px-6 py-20">
+      <h2 class="text-4xl font-bold mb-4 font-libre-baskerville gradient-text">SHOP BY CATEGORIES</h2>
+      <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Discover our carefully curated collection of premium essential oils, each blend crafted to enhance your wellness journey.</p>
+
+      <div class="flex flex-wrap justify-center items-center gap-8 max-w-5xl mx-auto">
+
+        <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105 category-card rounded-xl p-4 shadow-lg w-64">
+          <div class="category-image" style="background-image: url('images/image_7a183d.jpg'); height:120px;"></div>
+          <h3 class="text-xl font-semibold mt-4 text-[#385032] font-libre-baskerville">Timeless Oudh</h3>
+        </div>
+
+        <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105 category-card rounded-xl p-4 shadow-lg w-64">
+          <div class="category-image" style="background-image: url('images/image_7a183d.jpg'); height:120px;"></div>
+          <h3 class="text-xl font-semibold mt-4 text-[#385032] font-libre-baskerville">Dreamscape Essences</h3>
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <button class="btn-primary text-white px-10 py-4 rounded-full font-semibold text-lg shadow-lg">
+          Discover Our Blends
+        </button>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto text-center px-6 py-20 bg-gradient-to-r from-white/50 to-green-50/50 rounded-3xl mx-4 shadow-inner heritage-section">
+      <h2 class="text-4xl font-bold mb-8 font-libre-baskerville gradient-text">Our Heritage: From Ancient Roots to Modern Rituals</h2>
+      <div class="max-w-4xl mx-auto">
+        <p class="text-lg leading-relaxed mb-6 text-gray-700">
+          Rooted deeply in the **spiritual heartland of India**, Arova embodies a legacy passed down through generations. Our journey began centuries ago, when our ancestors harnessed the profound power of nature to craft potent remedies and captivating fragrances. We meticulously follow **age-old distillation techniques**, blending them with **cutting-edge research** in scent psychology to create products that are not just luxurious, but also deeply therapeutic. Every drop of Arova oil is a testament to our unwavering commitment to **purity, tradition, and the transformative essence of the Earth**. From the first cultivation in our verdant farms to the final seal on our exquisite vials, each step is imbued with intention, ensuring you receive a piece of timeless Indian wisdom.
+        </p>
+        <p class="text-lg leading-relaxed text-gray-700">
+          This is more than just a process; it's a **sacred ritual** that honours the very soul of the plants and the hands that nurture them.
+        </p>
+      </div>
+    </section>
+
+    <hr class="my-12 border-t-2 border-gray-200 mx-auto max-w-7xl">
+
+    <section id="contact-us-section" class="max-w-7xl mx-auto px-6 py-20 text-center">
+        <h2 class="text-4xl font-bold mb-4 font-libre-baskerville gradient-text">Connect With Us</h2>
+        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+            Have questions about our blends or your order? We're here to help! Reach out to us through the following channels.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="category-card rounded-xl p-8 shadow-lg flex flex-col items-center justify-center text-[#385032] group hover:scale-105 transition-transform duration-300">
+                <svg class="w-16 h-16 mb-4 text-[#5e7d58] group-hover:text-[#385032] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 10a2 2 0 01-2 2H7a2 2 0 01-2-2V8a2 2 0 012-2h10a2 2 0 012 2v10z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-2 font-libre-baskerville">Email Us</h3>
+                <p class="text-gray-700">For general inquiries and support.</p>
+                <a href="mailto:support@arova.com" class="mt-4 inline-block btn-primary text-white px-8 py-3 rounded-full font-semibold text-md shadow-md">
+                    Send an Email
+                </a>
+            </div>
+
+            <div class="category-card rounded-xl p-8 shadow-lg flex flex-col items-center justify-center text-[#385032] group hover:scale-105 transition-transform duration-300">
+                <svg class="w-16 h-16 mb-4 text-[#5e7d58] group-hover:text-[#385032] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 00.948.684l1.498 4.493a1 1 0 00-.502 1.21l-2.257 2.257a11.002 11.002 0 0010.428 10.428l2.257-2.257a1 1 0 001.21-.502l4.493 1.498a1 1 0 00.684.949V19a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-2 font-libre-baskerville">Call or WhatsApp</h3>
+                <p class="text-gray-700">Reach us during business hours (9 AM - 6 PM IST).</p>
+                <a href="tel:+911234567890" class="mt-4 inline-block btn-primary text-white px-8 py-3 rounded-full font-semibold text-md shadow-md mr-2">
+                    Call Now
+                </a>
+                <a href="https://wa.me/919876543210" target="_blank" class="mt-4 inline-block btn-primary text-white px-8 py-3 rounded-full font-semibold text-md shadow-md">
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-br from-[#385032] to-[#2d3e28] text-[#f5f5dc] px-6 py-16 text-center">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="text-left">
+          <h3 class="text-2xl font-bold mb-4 font-libre-baskerville">🌿 Arova</h3>
+          <p class="text-sm leading-relaxed opacity-90 mb-4">From Earth to Essence: Premium fragrance oils crafted with intention for your wellness and luxury rituals.</p>
+          <div class="flex gap-3 mt-4">
+            <a href="#" class="text-[#f5f5dc] hover:text-green-200 transition-colors duration-300 transform hover:scale-110" aria-label="Instagram">
+              <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="text-[#f5f5dc] hover:text-green-200 transition-colors duration-300 transform hover:scale-110" aria-label="Facebook">
+              <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="text-[#f5f5dc] hover:text-green-200 transition-colors duration-300 transform hover:scale-110" aria-label="Twitter">
+              <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-left">
+          <h3 class="text-lg font-semibold mb-4">Our Blends</h3>
+          <ul class="text-sm space-y-2 opacity-90">
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Digest</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Breathe</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Immune</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Headspace</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Sleep</a></li>
+          </ul>
+        </div>
+
+        <div class="text-left">
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="text-sm space-y-2 opacity-90">
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Track Your Order</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">@ArovaEssence</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Our Heritage</a></li>
+            <li><a href="#" class="hover:text-green-200 transition-colors duration-300">Farm Partners</a></li>
+          </ul>
+        </div>
+
+        <div class="text-left">
+          <h3 class="text-lg font-semibold mb-4">Join the Arova Tribe</h3>
+          <p class="text-sm mb-4 opacity-90">✨ Get exclusive access to new blends and wellness tips</p>
+          <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-full bg-white/10 text-white placeholder-green-200 border border-green-200/30 focus:outline-none focus:border-green-200 transition-colors duration-300" />
+          <button class="mt-3 bg-green-200 text-[#385032] px-6 py-3 rounded-full w-full font-semibold hover:bg-white transition-colors duration-300">
+            Join Newsletter
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center text-sm mt-12 pt-8 border-t border-green-200/20 opacity-75">
+        &copy; 2025 Arova. All rights reserved. From Earth to Essence.
+      </div>
+    </footer>
+  </body>
+</html>
