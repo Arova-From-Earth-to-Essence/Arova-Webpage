@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timeless Oudh - Arova</title>
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f5f5dc; /* Beige color for the background */
+      font-family: 'Inter', sans-serif; /* Set default body font to Inter */
+      color: #385032; /* Ensure consistent text color */
+    }
+    /* Keep Libre Baskerville for specific headings if desired */
+    .font-libre-baskerville {
+      font-family: 'Libre Baskerville', serif;
+    }
+    .font-inter { /* This rule is now largely redundant if body is Inter, but kept for clarity */
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="text-[#385032]">     <%- include('partials/header') %>
+
+    <header class="bg-[#5e7d58] shadow-md py-4 px-6">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-[#FCFBEF] font-libre-baskerville">Timeless Oudh</h1>     </div>
+  </header>
+
+    <main class="p-6 space-y-12 max-w-screen-xl mx-auto">
+
+  <!-- Female Collection -->
+  <section>
+    <div class="text-center text-2xl font-semibold mb-6 font-inter">Female Collection</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <% femaleProducts.forEach(product => { %>
+        <div class="bg-white rounded-xl shadow-lg p-4 flex flex-col transition transform hover:-translate-y-1">
+          <img src="<%= product.image %>" alt="<%= product.name %>" class="w-full h-40 object-cover rounded-md mb-4">
+          <h2 class="text-lg font-semibold mb-2 font-inter"><%= product.name %></h2>
+          <p class="text-sm text-gray-600 mb-4 font-inter"><%= product.description %></p>
+          <button class="mt-auto bg-[#385032] text-white px-4 py-2 rounded-full hover:bg-[#5e7d58] transition font-inter text-base">
+            Order Now
+          </button>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- Male Collection -->
+  <section>
+    <div class="text-center text-2xl font-semibold mb-6 mt-10 font-inter">Male Collection</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <% maleProducts.forEach(product => { %>
+        <div class="bg-white rounded-xl shadow-lg p-4 flex flex-col transition transform hover:-translate-y-1">
+          <img src="<%= product.image %>" alt="<%= product.name %>" class="w-full h-40 object-cover rounded-md mb-4">
+          <h2 class="text-lg font-semibold mb-2 font-inter"><%= product.name %></h2>
+          <p class="text-sm text-gray-600 mb-4 font-inter"><%= product.description %></p>
+          <button class="mt-auto bg-[#385032] text-white px-4 py-2 rounded-full hover:bg-[#5e7d58] transition font-inter text-base">
+            Order Now
+          </button>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+</main>
+
+
+  </main>
+
+     <%- include('partials/footer') %> 
+
+</body>
+</html> 
